@@ -31,7 +31,9 @@ export class TorListComponent implements OnInit {
     this.restService.takeNumber(torId).subscribe((res) => {
       console.log(res.data);
       this.Message = res.message;
-      this.snackBar.open(this.Message, "OK");
+      this.snackBar.open(this.Message, "OK", {
+        duration: 3000
+      });
     })
   }
 

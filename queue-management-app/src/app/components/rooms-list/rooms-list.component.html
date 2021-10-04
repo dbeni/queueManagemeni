@@ -20,7 +20,7 @@
                 Next Number to be called
             </td>
             <td scope="row">
-              {{Queue[0]}}
+              {{Queue[0] ?? "None"}}
             </td>
           </tr>
           <tr>
@@ -28,7 +28,7 @@
                 Last Released Number
             </td>
             <td scope="row">
-              {{LastReleasedQueueNumber}}
+              {{LastReleasedQueueNumber != null && LastReleasedQueueNumber != 0 ? LastReleasedQueueNumber : "None"}}
             </td>
           </tr>
         </tbody>
@@ -44,7 +44,11 @@
         <tr *ngFor="let room of Rooms.roomsList">
           <td>{{room.roomName}}</td>
           <td>
-            <app-room [roomProperties] = "room" (sendQueueAndLast)="updateQueueAndLast($event)"></app-room>
+            <app-room
+            [roomProperties] = "room"
+            [initialQueue] = "Queue"
+            [initialLast] = "LastReleasedQueueNumber"
+            (sendQueueAndLast)="updateQueueAndLast($event)"></app-room>
           </td>
         </tr>
       </table>

@@ -21,10 +21,15 @@ export class LogsListComponent implements OnInit {
       this.GlobalSessionState = res.data.globalState;
     });
 
-    this.restService.getLogs().subscribe((res) => {
-      console.log(res.data);
-      this.LogsList = res.data.logsList;
-    });
+    this.init();
+    //auto refresh every 5 second, for use in 2 tabs/windows
+    setInterval(() => this.init(), 5000);
   }
 
+  init(): void {
+    this.restService.getLogs().subscribe((res) => {
+      console.log(res.data);
+      this.LogsList = res.data.logsList.reverse();
+    });
+  }
 }

@@ -21,14 +21,31 @@
               Actions
           </td>
           <td scope="row">
-            <div *ngIf="(roomProperties.currentQueueNumber) else elseBlock">
-              <button mat-button (click)="releaseNumber(roomProperties.roomId)">Release</button>
-            </div>
-            <ng-template #elseBlock>
-              <button mat-button (click)="acceptNumber(roomProperties.roomId)">Accept</button>
-              <button mat-button (click)="skipNumber(roomProperties.roomId)">Skip</button>
-            </ng-template>
+            {{ console.log("aa", QueueAndLast, roomProperties) }}
 
+            <ng-container *ngIf="(QueueAndLast.queue.length === 0);else caseQueue">
+              <ng-container *ngIf="(roomProperties.currentQueueNumber);else caseEmptyQueueNoNumberIn">
+                <div class="buttons-margin">
+                  <button mat-raised-button (click)="releaseNumber(roomProperties.roomId)">Release</button>
+                </div>
+              </ng-container>
+              <ng-template #caseEmptyQueueNoNumberIn>
+                Queue is empty, waiting...
+              </ng-template>
+            </ng-container>
+            <ng-template #caseQueue>
+                <ng-container *ngIf="(roomProperties.currentQueueNumber);else caseNoNumberIn">
+                  <div class="buttons-margin">
+                    <button mat-raised-button (click)="releaseNumber(roomProperties.roomId)">Release</button>
+                  </div>
+                </ng-container>
+                <ng-template #caseNoNumberIn>
+                  <div class="buttons-margin">
+                    <button mat-raised-button color="accent" (click)="acceptNumber(roomProperties.roomId)">Accept</button>
+                    <button mat-raised-button color="warn" (click)="skipNumber(roomProperties.roomId)">Skip</button>
+                  </div>
+                </ng-template>
+              </ng-template>
           </td>
         </tr>
       </tbody>

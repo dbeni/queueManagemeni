@@ -15,24 +15,37 @@ export class RoomComponent implements OnInit {
     lastQueueNumber : null
   };
 
+  @Input() initialQueue = null;
+  @Input() initialLast = null;
+
   @Output() sendQueueAndLast = new EventEmitter<object>();
 
   QueueAndLast :any = {queue : null, last : null};
 
+  console = console;
+
   constructor(private restService: RestService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.QueueAndLast.queue = this.initialQueue;
+    this.QueueAndLast.last = this.initialLast;
   }
 
   acceptNumber(roomId : any): void {
     this.restService.acceptNumber(roomId).subscribe((res) => {
       console.log(res.data);
-      this.roomProperties.currentQueueNumber = res.data.room.currentQueueNumber;
+      //this.roomProperties.currentQueueNumber = res.data.room.currentQueueNumber;
+      this.roomProperties = res.data.room;
       this.QueueAndLast.queue = res.data.queue;
+      console.log("QueueAndLast", this.QueueAndLast);
       this.sendQueueAndLast.emit(this.QueueAndLast);
-      this.snackBar.open(res.message, "OK");
+      this.snackBar.open(res.message, "OK", {
+        duration: 3000
+      });
     }, (err) => {
-      this.snackBar.open(err, "Close");
+      this.snackBar.open(err, "Close", {
+        duration: 3000
+      });
     })
   }
 
@@ -41,23 +54,32 @@ export class RoomComponent implements OnInit {
       console.log(res.data);
       this.QueueAndLast.queue = res.data;
       this.sendQueueAndLast.emit(this.QueueAndLast);
-      this.snackBar.open(res.message, "OK");
+      this.snackBar.open(res.message, "OK", {
+        duration: 3000
+      });
     }, (err) => {
-      this.snackBar.open(err, "Close");
+      this.snackBar.open(err, "Close", {
+        duration: 3000
+      });
     })
   }
 
   releaseNumber(roomId : any): void {
     this.restService.releaseNumber(roomId).subscribe((res) => {
       console.log(res.data);
-      this.roomProperties.currentQueueNumber = res.data.room.currentQueueNumber;
+      this.roomProperties = res.data.room;
       this.QueueAndLast.queue = res.data.queue;
       this.QueueAndLast.last = res.data.releasedNumber;
       this.sendQueueAndLast.emit(this.QueueAndLast);
-      this.snackBar.open(res.message, "OK");
+      this.snackBar.open(res.message, "OK", {
+        duration: 3000
+      });
     }, (err) => {
-      this.snackBar.open(err, "Close");
+      this.snackBar.open(err, "Close", {
+        duration: 3000
+      });
     })
   }
 
+  log(val : any) { console.log(val); }
 }
