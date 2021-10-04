@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h2">Rooms List</h2>
+  </div>
+
+  <div *ngIf="(0 === GlobalSessionState) else elseBlock">
+    The application is not started.
+  </div>
+  <ng-template #elseBlock>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Global Dashboard</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">
+                Next Number to be called
+            </td>
+            <td scope="row">
+              {{Queue[0]}}
+            </td>
+          </tr>
+          <tr>
+            <td scope="row">
+                Last Released Number
+            </td>
+            <td scope="row">
+              {{LastReleasedQueueNumber}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Rooms Dashboard</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let room of Rooms.roomsList">
+          <td>{{room.roomName}}</td>
+          <td>
+            <app-room [roomProperties] = "room" (sendQueueAndLast)="updateQueueAndLast($event)"></app-room>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </ng-template>
+</div>
+

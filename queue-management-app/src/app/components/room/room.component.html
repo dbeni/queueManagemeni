@@ -1,0 +1,38 @@
+<div class="container">
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">{{roomProperties.roomName ?? "none"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row">
+              Current number :
+          </td>
+          <td scope="row">
+            {{roomProperties.currentQueueNumber ?? "none"}}
+          </td>
+        </tr>
+        <tr>
+          <td scope="row">
+              Actions
+          </td>
+          <td scope="row">
+            <div *ngIf="(roomProperties.currentQueueNumber) else elseBlock">
+              <button mat-button (click)="releaseNumber(roomProperties.roomId)">Release</button>
+            </div>
+            <ng-template #elseBlock>
+              <button mat-button (click)="acceptNumber(roomProperties.roomId)">Accept</button>
+              <button mat-button (click)="skipNumber(roomProperties.roomId)">Skip</button>
+            </ng-template>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
