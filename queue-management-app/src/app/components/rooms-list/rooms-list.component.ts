@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RestService } from './../../service/rest.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-rooms-list',
@@ -8,7 +9,7 @@ import { RestService } from './../../service/rest.service';
 })
 export class RoomsListComponent implements OnInit {
 
-  constructor(private restService: RestService) { }
+  constructor(private restService: RestService, private snackBar: MatSnackBar) { }
 
   GlobalSessionState:any = null;
   Rooms:any = null;
@@ -23,16 +24,25 @@ export class RoomsListComponent implements OnInit {
 
   init() {
     this.restService.getGlobalState().subscribe((res) => {
-      console.log(res.data);
       this.GlobalSessionState = res.data.globalState;
+    }, (err) => {
+      this.snackBar.open(err, "Close", {
+        duration: 3000,
+        verticalPosition:"top"
+      });
     });
 
+
     this.restService.getRooms().subscribe((res) => {
-      console.log(res.data);
       this.Rooms = res.data.rooms;
       this.Queue = res.data.queue;
       this.LastReleasedQueueNumber = res.data.lastReleasedQueueNumber;
-    });
+    }, (err) => {
+      this.snackBar.open(err, "Close", {
+        duration: 3000,
+        verticalPosition:"top"
+      });
+    })
   }
 
   updateQueueAndLast(queueAndLast: any) {
@@ -42,6 +52,11 @@ export class RoomsListComponent implements OnInit {
     if (this.Queue.length === 0) {
       this.restService.getRooms().subscribe((res) => {
         this.Rooms = res.data.rooms;
+      }, (err) => {
+        this.snackBar.open(err, "Close", {
+          duration: 3000,
+          verticalPosition:"top"
+        });
       });
     }
   }

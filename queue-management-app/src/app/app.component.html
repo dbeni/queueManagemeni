@@ -1,20 +1,20 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand">Queue Management System</a>
-  <div id="navbarNav" class="collapse navbar-collapse">
-    <ul class="navbar-nav ml-auto ">
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/session-state">Session State</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/tor-list">Take a Number</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/rooms-list">Rooms</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/logs-list">Logs</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1>Queue Management System</h1>
+    <span class="menu-spacer"></span>
+    <div>
+      <a mat-button [routerLink]="'/session-state'"> Session State </a>
+      <a mat-button [routerLink]="'/tor-list'"> Take a Number </a>
+      <a mat-button [routerLink]="'/rooms-list'"> Rooms </a>
+      <a mat-button [routerLink]="'/logs-list'"> Logs </a>
+    </div>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row>
+      <span style="font-size: 12px;">Queue Management System, a good exercise to test a motivated candidate abilities.</span>
+    </mat-toolbar-row>
+</mat-toolbar>
 <router-outlet></router-outlet>

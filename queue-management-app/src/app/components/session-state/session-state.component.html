@@ -1,32 +1,28 @@
-<div class="container">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="container general-margin">
+  <div>
     <h2 class="h2">Session State</h2>
   </div>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Session State</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">
-            {{GlobalSessionState === 0
-              ? "Stopped"
-              : "Started, "+ RoomsCount +" rooms, " + TorCount + " Tors"}}
-          </th>
-          <td class="text-center">
-            <div *ngIf="(0 === GlobalSessionState) else elseBlock">
-              <button class="btn btn-sm btn-danger" (click)="startSession()">Start</button>
-            </div>
-            <ng-template #elseBlock>
-              <button class="btn btn-sm btn-danger" (click)="stopSession()">Stop</button>
-            </ng-template>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <hr>
+
+  <table class="mat-table" width="25%">
+    <tr class="mat-header-row">
+      <th class="mat-header-cell">Session State</th>
+      <th class="mat-header-cell">Action</th>
+    </tr>
+    <tr class="mat-row">
+      <td class="mat-cell" width="75%" style="text-align: left">
+        {{GlobalSessionState === 0
+          ? "Stopped"
+          : "Started, "+ RoomsCount +" rooms, " + TorCount + " Tors"}}
+        </td>
+      <td class="mat-cell" style="text-align: center">
+        <div *ngIf="(0 === GlobalSessionState) else elseBlock">
+          <button mat-raised-button color="accent" (click)="startSession()">Start</button>
+        </div>
+        <ng-template #elseBlock>
+          <button mat-raised-button color="warn" (click)="stopSession()">Stop</button>
+        </ng-template>
+      </td>
+    </tr>
+  </table>
 </div>

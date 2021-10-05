@@ -17,7 +17,6 @@ export class LogsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.restService.getGlobalState().subscribe((res) => {
-      console.log(res.data);
       this.GlobalSessionState = res.data.globalState;
     });
 
@@ -28,7 +27,6 @@ export class LogsListComponent implements OnInit {
 
   init(): void {
     this.restService.getLogs().subscribe((res) => {
-      console.log(res.data);
       this.LogsList = res.data.logsList.reverse();
     });
   }

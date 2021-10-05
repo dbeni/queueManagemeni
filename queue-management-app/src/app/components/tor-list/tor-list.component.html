@@ -1,33 +1,25 @@
-<div class="container">
+<div class="container general-margin">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h2 class="h2">Tor List</h2>
   </div>
-
+  <hr>
   <div *ngIf="(0 === GlobalSessionState) else elseBlock">
     The application is not started.
   </div>
   <ng-template #elseBlock>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Tor Id</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of TorIds; let index=index">
-            <td scope="row">
-                Tor {{ index + 1 }}
-            </td>
-            <td class="text-center">
-              <button mat-raised-button color="accent" (click)="takeNumber(index)">Take Number</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="mat-table" width="25%">
+      <tr class="mat-header-row">
+        <th class="mat-header-cell">Tor Id</th>
+        <th class="mat-header-cell">Action</th>
+      </tr>
+      <tr *ngFor="let item of TorIds; let index=index" class="mat-row">
+        <td class="mat-cell" width="50%" style="text-align: left">
+          Tor {{ index + 1 }}
+          </td>
+        <td class="mat-cell" style="text-align: center">
+          <button mat-raised-button color="accent" (click)="takeNumber(index)">Take Number</button>
+        </td>
+      </tr>
+    </table>
   </ng-template>
-
-
 </div>

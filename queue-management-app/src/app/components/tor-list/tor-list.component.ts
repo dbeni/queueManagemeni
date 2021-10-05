@@ -20,19 +20,28 @@ export class TorListComponent implements OnInit {
 
   ngOnInit(): void {
     this.restService.getGlobalState().subscribe((res) => {
-      console.log(res.data);
       this.GlobalSessionState = res.data.globalState;
       this.TorCount = res.data.torCount;
       this.TorIds = new Array(this.TorCount);
-    });
+    }, (err) => {
+      this.snackBar.open(err, "Close", {
+        duration: 3000,
+        verticalPosition:"top"
+      });
+    })
   }
 
   takeNumber(torId : number): void {
     this.restService.takeNumber(torId).subscribe((res) => {
-      console.log(res.data);
       this.Message = res.message;
       this.snackBar.open(this.Message, "OK", {
-        duration: 3000
+        duration: 3000,
+        verticalPosition:"top"
+      });
+    }, (err) => {
+      this.snackBar.open(err, "Close", {
+        duration: 3000,
+        verticalPosition:"top"
       });
     })
   }

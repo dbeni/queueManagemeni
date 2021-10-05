@@ -1,10 +1,10 @@
 <div class="container">
 
   <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered" width="100%">
       <thead>
         <tr>
-          <th scope="col">{{roomProperties.roomName ?? "none"}}</th>
+          <th scope="col" style="text-align: center" colspan="2">{{roomProperties.roomName ?? "none"}}</th>
         </tr>
       </thead>
       <tbody>
@@ -21,8 +21,6 @@
               Actions
           </td>
           <td scope="row">
-            {{ console.log("aa", QueueAndLast, roomProperties) }}
-
             <ng-container *ngIf="(QueueAndLast.queue.length === 0);else caseQueue">
               <ng-container *ngIf="(roomProperties.currentQueueNumber);else caseEmptyQueueNoNumberIn">
                 <div class="buttons-margin">

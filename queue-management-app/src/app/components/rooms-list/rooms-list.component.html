@@ -1,58 +1,49 @@
-<div class="container">
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="container general-margin">
+  <div>
     <h2 class="h2">Rooms List</h2>
   </div>
-
+  <hr>
   <div *ngIf="(0 === GlobalSessionState) else elseBlock">
     The application is not started.
   </div>
   <ng-template #elseBlock>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Global Dashboard</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td scope="row">
-                Next Number to be called
-            </td>
-            <td scope="row">
-              {{Queue[0] ?? "None"}}
-            </td>
-          </tr>
-          <tr>
-            <td scope="row">
-                Last Released Number
-            </td>
-            <td scope="row">
-              {{LastReleasedQueueNumber != null && LastReleasedQueueNumber != 0 ? LastReleasedQueueNumber : "None"}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="table-responsive">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Rooms Dashboard</th>
-          </tr>
-        </thead>
-        <tr *ngFor="let room of Rooms.roomsList">
-          <td>{{room.roomName}}</td>
-          <td>
-            <app-room
+    <table class="mat-table" width="25%" style="margin-bottom: 25px;">
+      <tr class="mat-header-row">
+        <th class="mat-header-cell" colspan="2">Global Dashboard</th>
+      </tr>
+      <tr class="mat-row">
+        <td class="mat-cell" width="50%" style="text-align: left">
+          Next Number to be called
+        </td>
+        <td class="mat-cell" style="text-align: center">
+          {{Queue[0] ?? "None"}}
+        </td>
+      </tr>
+      <tr class="mat-row">
+        <td class="mat-cell" width="50%" style="text-align: left">
+          Last Released Number
+        </td>
+        <td class="mat-cell" style="text-align: center">
+          {{LastReleasedQueueNumber != null && LastReleasedQueueNumber != 0 ? LastReleasedQueueNumber : "None"}}
+        </td>
+      </tr>
+    </table>
+
+    <table class="mat-table" width="25%" style="margin-bottom: 25px;">
+      <tr class="mat-header-row">
+        <th class="mat-header-cell">Rooms Dashboard</th>
+      </tr>
+      <tr *ngFor="let room of Rooms.roomsList" class="mat-row">
+        <td class="mat-cell">
+          <app-room
             [roomProperties] = "room"
             [initialQueue] = "Queue"
             [initialLast] = "LastReleasedQueueNumber"
             (sendQueueAndLast)="updateQueueAndLast($event)"></app-room>
-          </td>
-        </tr>
-      </table>
-    </div>
+        </td>
+      </tr>
+    </table>
+
   </ng-template>
 </div>
 
